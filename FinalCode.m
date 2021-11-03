@@ -1,5 +1,7 @@
-%% Author: C. GULER 
+%% Author: C. GULER
+%% Adapted from Dr Abdul Gaffar
 %% Date:   November 2021
+
 %  Code Written to Plot the range-Doppler Map, Model the Amplitude Distribution 
 %  and Generate the PSD of Land Clutter  
 
@@ -21,7 +23,7 @@ PRF_Hz = DataStrc.Info.PRF_Hz;
 RangeStart = DataStrc.Info.RangeStart_m; 
 
 
-%% Plot data: Range-Doppler plot
+%% 1. Plot data: Range-Doppler Map
 NumPulsesToProcess = N_pulses; 
 RangeDoppler = fft(Data(1:NumPulsesToProcess,:), [], 1);                    % Only applying the FFT in the slow-time dimension 
                                                                             % Data(1:NumPulsesToProcess,:) takes all the data from row 1 to row 'N_pulses'        
@@ -76,7 +78,7 @@ New_Data = RangeDoppler_shifted(:,Bin_m);
 NewDataCol = New_Data(:);
 
 
-%% Plot Histogram of Data #1
+%% Plot Histogram of Data
 figure;
 [rownum,colnum] = size(NewDataCol);
 
@@ -92,7 +94,7 @@ xlim([0 0.15])
 ylim([0 130])
 
 
-%% Plot Amplitude PDF #1
+%% 2. Plot Amplitude PDF 
 figure;
 ksdensity(NewDataCol,'NumPoints',800);
 xlabel('Amplitude')
@@ -109,7 +111,7 @@ set(gca,'Xcolor', 'k','YColor','k')
 legend('10 MHz')
 
 
-%% Plot Amplitude PDF #2
+%% Plot Amplitude PDF with Parameter Values
 
 BinSize = 0.004;                                                          % Variable Bin Size
 BinAxis = 0:BinSize:max(NewDataCol);
@@ -157,9 +159,9 @@ grid on;
 set(0,'defaultfigurecolor',[1 1 1])
 
 
-%% Generate PSD of Data
+%% 3. Generate PSD of Data
 
-DataStrc = load('ProcRL_south_east_25Hz_3500m.mat');            % load dataset 
+DataStrc = load('ProcRL_south_east_25Hz_3500m.mat');                        % load dataset 
 Data = DataStrc.RangeLines_AfterEq;                                         % Radar data
 [N_pulses,No_bins] = size(Data);
 Data = Data - repmat(mean(Data),N_pulses,1); 
@@ -213,7 +215,7 @@ ax.YTick = -9:3:9;
 
 
 
-%% Categorise Range Bins according to -3dB Bandwidth
+%% 4. Categorise Range Bins according to -3dB Bandwidth
 
 DataStrc = load('ProcRL_Urban_300m_400M_700m_900m.mat');            % load dataset 
 Data = DataStrc.RangeLines_AfterEq;                                         % Radar data
