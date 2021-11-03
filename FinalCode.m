@@ -2,8 +2,8 @@
 %% Adapted from Dr Abdul Gaffar
 %% Date:   November 2021
 
-%  Code Written to Plot the range-Doppler Map, Model the Amplitude Distribution 
-%  and Generate the PSD of Land Clutter  
+%Code Written to Plot the range-Doppler Map, Model the Amplitude Distribution 
+%and Generate the PSD of Land Clutter  
 
 close all;
 clear all;
